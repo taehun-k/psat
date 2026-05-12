@@ -1,0 +1,93 @@
+gen_idx: [1,4]
+gen_variables: l2l5
+freq: None # 100k, 120k
+n_cell: 4
+
+data:
+  design_var_path:
+    - ./data/dataset/design_variable/DV_${gen_variables}.mat
+  response_path: 
+    - ./data/dataset/response/${freq}/DV_${gen_variables}_${n_cell}cell_response.mat
+  n_design_var: 2
+  T_threshold: 0
+  train:
+    n_data: 20000
+  valid:
+    n_data: 6000
+  test:
+    n_data: 6000
+
+model:
+  save_dir: ./experiments/saved_model/
+  save_path: None
+  name:
+    fwd: attn_fwd
+    inv: psaat
+  psat:
+    context_dim: 64
+    conditional: true
+    norm: LN
+    latent_dim: 2
+    hidden_dim:
+    - 256
+    - 256
+    - 256
+    - 256
+    - 256
+    input_dim: 8 # 8-data.n_design_var+2
+    num_heads: 16 # 16
+    output_dim: 2
+    refine_dim: []
+    lr: 0.0001 # 1e-4
+    betas:
+    - 0.0
+    - 0.9
+
+  discriminator:
+    context_dim: 16
+    conditional: true
+    norm: LN
+    hidden_dim:
+    - 256
+    - 256
+    - 256
+    - 256
+    - 256
+    input_dim: 10
+    n_critic: 1
+    num_heads: 4
+    output_dim: 1
+    lr: 0.0001 # 1e-4
+    betas:
+    - 0.0
+    - 0.9
+
+  forward:
+    norm: LN
+    conditional: false
+    lr: 0.001 # 1e-3
+    input_dim: 8
+    output_dim: 2
+
+    attn_fwd:
+      num_attn: 1
+      context_dim: 128
+      num_heads: 8
+      hidden_dim:
+      - 256
+      - 256
+      - 256
+      - 256
+      - 256
+
+    base_fwd:
+      hidden_dim:
+      - 512
+      - 512
+      - 512
+      - 128
+    
+train:
+  path: ./experiments/saved_model
+  batch_size: 256
+  n_epochs: 1000

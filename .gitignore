@@ -1,0 +1,23 @@
+# Python / system
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+*.swp
+
+# Hydra outputs
+outputs/
+multirun/
+
+# COMSOL FEM models (too large for git; distributed separately)
+*.mph
+
+# MATLAB scripts shipped with COMSOL models
+*.m
+
+# 120 kHz response data (not used by released models)
+data/dataset/response/120k/
+
+# Internal drafts (not part of the public release)
+experiments/learning_curve/*.png
+experiments/test_dataset_generation/*.png
