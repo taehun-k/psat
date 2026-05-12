@@ -6,7 +6,7 @@
 
 [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.cma.2026.119041-blue)](https://doi.org/10.1016/j.cma.2026.119041) [![Journal](https://img.shields.io/badge/Journal-CMAME-red)](https://www.sciencedirect.com/journal/computer-methods-in-applied-mechanics-and-engineering)
 
-<u>**Taehun Kim**</u><sup>1,&dagger;</sup> &nbsp; Donghyu Lee<sup>1</sup> &nbsp; Juhwan Han<sup>1</sup> &nbsp; Sayhee Kim<sup>1</sup> &nbsp; Byeng D. Youn<sup>1,\*</sup> &nbsp; Soo-Ho Jo<sup>2,\*</sup>
+**<u>Taehun Kim<u>**<sup>1,&dagger;</sup> &nbsp; Donghyu Lee<sup>1</sup> &nbsp; Juhwan Han<sup>1</sup> &nbsp; Sayhee Kim<sup>1</sup> &nbsp; Byeng D. Youn<sup>1,\*</sup> &nbsp; Soo-Ho Jo<sup>2,\*</sup>
 
 <sup>1</sup>Seoul National University &nbsp;&nbsp; <sup>2</sup>Dongguk University<br/>
 <sup>&dagger;</sup>First author. &nbsp;&nbsp; <sup>\*</sup>Corresponding authors.
