@@ -6,7 +6,7 @@
 
 [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.cma.2026.119041-blue)](https://doi.org/10.1016/j.cma.2026.119041) [![Journal](https://img.shields.io/badge/Journal-CMAME-red)](https://www.sciencedirect.com/journal/computer-methods-in-applied-mechanics-and-engineering)
 
-<u>**Taehun Kim**<u><sup>1,&dagger;</sup> &nbsp; Donghyu Lee<sup>1</sup> &nbsp; Juhwan Han<sup>1</sup> &nbsp; Sayhee Kim<sup>1</sup> &nbsp; Byeng D. Youn<sup>1,\*</sup> &nbsp; Soo-Ho Jo<sup>2,\*</sup>
+<u>**Taehun Kim**</u><sup>1,&dagger;</sup> &nbsp; Donghyu Lee<sup>1</sup> &nbsp; Juhwan Han<sup>1</sup> &nbsp; Sayhee Kim<sup>1</sup> &nbsp; Byeng D. Youn<sup>1,\*</sup> &nbsp; Soo-Ho Jo<sup>2,\*</sup>
 
 <sup>1</sup>Seoul National University &nbsp;&nbsp; <sup>2</sup>Dongguk University<br/>
 <sup>&dagger;</sup>First author. &nbsp;&nbsp; <sup>\*</sup>Corresponding authors.
@@ -23,7 +23,7 @@ PSAAT is a generative design framework for elastic metasurfaces that explicitly 
 psat/
 ├── arguments.py                 # Default runtime / material arguments
 ├── main.py                      # Entry point (Hydra-driven, interactive mode select)
-├── train.py                     # Trainer classes: forward surrogate & PSAAT generator
+├── train.py                     # Trainer classes: forward surrogate & PSAT
 ├── test.py                      # Evaluation, design generation, attention analysis
 ├── utils.py                     # Plotting & weight-init helpers
 │
@@ -46,7 +46,7 @@ psat/
 ├── model/
 │   ├── attention.py             # Multi-head attention block, positional encoding
 │   ├── forward.py              # AttnFWD / BaseFWD forward surrogates
-│   └── inverse.py                 # PSAAT generator + discriminator
+│   └── inverse.py                 # PSAAT PSAT + discriminator
 │
 └── experiments/
     ├── saved_model/             # Pretrained checkpoints (.pt)
@@ -97,11 +97,11 @@ The program then prompts you to choose a mode:
 
 | Key | Mode          | Description |
 |-----|---------------|-------------|
-| `a` | `model-spec`  | Print parameter counts and FLOPs for PSAAT / Discriminator / Forward surrogates |
+| `a` | `model-spec`  | Print parameter counts and FLOPs for PSAT / Discriminator / Forward surrogates |
 | `b` | `fwd-train`   | Train the forward surrogate (AttnFWD, BaseFWD, or both) |
 | `c` | `fwd-test`    | Evaluate the trained forward surrogates against ground-truth responses |
-| `d` | `inv-train`   | Train the inverse PSAAT generator + discriminator |
-| `e` | `inv-test`    | Evaluate the PSAAT generator and run physical analysis of attention scores |
+| `d` | `inv-train`   | Train the inverse PSAT + discriminator |
+| `e` | `inv-test`    | Evaluate the PSAT and run physical analysis of attention scores |
 | `f` | `generate`    | Generate designs for a practical case (refracting / focusing) |
 | `g` | `comsol`      | Export generated designs for COMSOL FEM validation |
 
@@ -110,7 +110,7 @@ The program then prompts you to choose a mode:
 Each `config/psaat_gen_*.yaml` defines which structural parameters are *generated* (the rest are conditioned). For example, `psaat_gen_l2l5.yaml` sets `gen_idx: [1,4]` (i.e. ℓ₂ and ℓ₅). Available configs:
 
 - `psaat_gen_l2l5` &nbsp; (2 generated variables)
-- `psaat_gen_l2l3l5`, `psaat_gen_l2l4l5`, `psaat_gen_l2l5l6`, `psaat_gen_l2l5l7` &nbsp; (3 generated variables)
+- `psaat_gen_l1l2l5`, `psaat_gen_l2l3l5`, `psaat_gen_l2l4l5`, `psaat_gen_l2l5l6`, `psaat_gen_l2l5l7`, `psaat_gen_l2l5l8` &nbsp; (3 generated variables)
 
 ### Selecting the operating frequency
 
@@ -129,7 +129,7 @@ Train PSAAT and then generate a refracting metasurface at 100 kHz:
 python main.py --config-name=psaat_gen_l2l5 freq=100k
 # > select (b) fwd-train, then (c) Both
 
-# 2) Train the inverse generator
+# 2) Train the inverse model
 python main.py --config-name=psaat_gen_l2l5 freq=100k
 # > select (d) inv-train
 
@@ -149,7 +149,7 @@ Generated designs are written to `experiments/practical_case/psaat/gen_designs/`
 
 `experiments/saved_model/` contains the trained weights used in the paper:
 
-- `best_psaat_gen_<vars>_<freq>.pt` &mdash; inverse generator (PSAAT)
+- `best_psaat_gen_<vars>_<freq>.pt` &mdash; inverse model (PSAT)
 - `best_attn_fwd_gen_<vars>_<freq>.pt` &mdash; attention-based forward surrogate
 - `best_base_fwd_gen_<vars>_<freq>.pt` &mdash; MLP baseline forward surrogate
 
@@ -173,7 +173,7 @@ The dataset loader (`data/custom.py`) draws non-overlapping random subsets for t
 If you find this work useful, please cite:
 
 ```bibtex
-@article{kim2026psaat,
+@article{kim2026structural,
   title   = {Structural dependency-aware generative design of elastic metasurfaces via pseudo-supervised attention-based transformer},
   author  = {Kim, Taehun and Lee, Donghyu and Han, Juhwan and Kim, Sayhee and Youn, Byeng D. and Jo, Soo-Ho},
   journal = {Computer Methods in Applied Mechanics and Engineering},
